@@ -1,36 +1,168 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Weather App
 
-## Getting Started
 
-First, run the development server:
+
+## Технологический стек
+
+- **Frontend Framework:** Next.js 14 (App Router)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS + Radix UI
+- **State Management:** Zustand (client state) + React Query (server state)
+- **HTTP Client:** Axios
+- **Testing:** Vitest + Testing Library + Playwright
+- **Documentation:** Storybook
+- **Code Quality:** ESLint + Prettier
+
+## Структура проекта
+
+```
+weather-app/
+│
+├── src/                          Весь исходный код приложения
+│   │
+│   ├── app/                      Next.js App Router
+│   │   ├── layout.tsx            Корневой layout приложения
+│   │   ├── page.tsx              Главная страница
+│   │   ├── globals.css           Глобальные стили
+│   │   ├── favicon.ico           Иконка сайта
+│   │   └── fonts/                Шрифты приложения
+│   │       ├── GeistVF.woff
+│   │       └── GeistMonoVF.woff
+│   │
+│   ├── components/               React компоненты
+│   │   ├── ui/                   Переиспользуемые UI компоненты (atoms)
+│   │   │                         Button, Input, Card, Toast, Spinner, etc.
+│   │   │
+│   │   └── features/             Фича-компоненты (molecules/organisms)
+│   │       ├── weather/          Компоненты для отображения погоды
+│   │       │                     WeatherCard, WeatherDetails, WeatherIcon
+│   │       │
+│   │       └── search-history/   Компоненты истории поиска
+│   │                             SearchBar, HistoryList, HistoryItem
+│   │
+│   └── lib/                      Бизнес-логика и утилиты
+│       ├── api/                  API клиенты и сервисы
+│       │                         weatherApi.ts, weatherService.ts, apiClient.ts
+│       │
+│       ├── hooks/                Custom React Hooks
+│       │                         useWeather, useSearchHistory, useDebounce
+│       │
+│       ├── stores/               Zustand State Management
+│       │                         weatherStore.ts, historyStore.ts
+│       │
+│       ├── types/                TypeScript типы и интерфейсы
+│       │                         weather.types.ts, common.types.ts
+│       │
+│       ├── utils/                Утилитные функции
+│       │                         weather.utils.ts, date.utils.ts, storage.utils.ts
+│       │
+│       └── constants/            Константы приложения
+│                                 api.constants.ts, messages.constants.ts
+│
+├── tests/                        Тесты
+│   ├── unit/                     Unit тесты
+│   └── integration/              Интеграционные тесты
+│
+├── public/                       Статические файлы
+│   └── icons/                    Иконки и изображения
+│
+├── stories/                      Storybook компоненты
+│
+├── tsconfig.json                 TypeScript конфигурация
+├── package.json                  Зависимости проекта
+├── tailwind.config.ts            Tailwind CSS конфигурация
+├── vitest.config.ts              Конфигурация тестов
+└── next.config.mjs               Next.js конфигурация
+```
+
+## Основные возможности
+
+- Поиск текущей погоды по названию города
+- Отображение детальной информации о погоде
+- История успешных поисков
+- Быстрый доступ к ранее найденным городам
+- Удаление элементов из истории
+- Обработка ошибок и граничных случаев
+- Адаптивный дизайн
+
+## Начало работы
+
+### Установка зависимостей
+
+```bash
+npm install
+```
+
+### Настройка переменных окружения
+
+Создайте файл `.env.local` в корне проекта:
+
+```env
+NEXT_PUBLIC_WEATHER_API_KEY=your_api_key_here
+NEXT_PUBLIC_WEATHER_API_URL=https://api.openweathermap.org/data/2.5
+```
+
+### Запуск development сервера
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Откройте [http://localhost:3000](http://localhost:3000) в браузере.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Запуск тестов
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run test          # Запуск всех тестов
+npm run test:watch    # Watch режим
+npm run test:coverage # С покрытием кода
+```
 
-## Learn More
+### Запуск Storybook
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run storybook
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Откройте [http://localhost:6006](http://localhost:6006) для просмотра компонентов.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Скрипты
 
-## Deploy on Vercel
+```bash
+npm run dev              # Запуск dev сервера
+npm run build            # Сборка для production
+npm run start            # Запуск production сервера
+npm run lint             # Проверка кода линтером
+npm run test             # Запуск тестов
+npm run storybook        # Запуск Storybook
+npm run build-storybook  # Сборка Storybook
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Импорты
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Проект использует alias `@/` для удобного импорта:
+
+```typescript
+import { WeatherCard } from '@/components/features/weather/WeatherCard';
+import { useWeather } from '@/lib/hooks/useWeather';
+import { WeatherData } from '@/lib/types/weather.types';
+```
+
+## Code Style
+
+- Используется ESLint для проверки кода
+- Prettier для форматирования
+- TypeScript strict mode включен
+- Следование принципам SOLID
+
+## Тестирование
+
+- **Unit тесты:** Для утилит, хуков и чистых функций
+- **Integration тесты:** Для API сервисов и компонентов с логикой
+- **Component тесты:** Для UI компонентов через Storybook + Vitest
+
+
+
+## License
+
+MIT
