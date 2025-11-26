@@ -23,6 +23,7 @@ export const transformWeatherData = (
     city: cityData.name,
     country: cityData.country,
     temperature: Math.round(current.temp),
+    humidity: current.humidity,
     description: current.weather[0].description,
     icon: current.weather[0].icon,
     minTemp: Math.round(daily[0].temp.min),

@@ -16,6 +16,7 @@ export interface WeatherApiResponse {
   current: {
     temp: number;
     wind_speed: number; 
+    humidity: number; 
     weather: Array<{
       description: string; 
       icon: string; 
@@ -23,8 +24,8 @@ export interface WeatherApiResponse {
   };
   daily: Array<{
     temp: {
-      min: number; // минимальная температура дня
-      max: number; // максимальная температура дня
+      min: number; 
+      max: number; 
     };
   }>;
 }
@@ -35,6 +36,7 @@ export interface WeatherData {
   city: string; 
   country: string; 
   temperature: number; 
+  humidity: number; 
   description: string; 
   icon: string; 
   minTemp: number; 
