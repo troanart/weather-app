@@ -5,6 +5,11 @@ import React, { useState, useEffect } from "react";
 import { Container, Box, Snackbar, Alert } from "@mui/material";
 
 import { WeatherData } from "@/lib/types/weather.types";
+import {
+  SUCCESS_MESSAGES,
+  ERROR_MESSAGES,
+} from "@/lib/constants/messages.constants";
+
 
 import { fetchWeatherForCity } from "@/lib/api/weatherService";
 
@@ -18,10 +23,8 @@ import { CityGeoData } from "@/lib/types/weather.types";
 import WeatherCard from "@/components/features/weather/WeatherCard";
 import SearchBar from "@/components/features/search-history/SearchBar";
 import HisoryList from "@/components/features/history-list/HistoryList";
-import {
-  SUCCESS_MESSAGES,
-  ERROR_MESSAGES,
-} from "@/lib/constants/messages.constants";
+import WeatherCardSkeleton from "@/components/features/weather/WeatherCardSkeleton";
+
 
 export default function Home() {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -65,7 +68,14 @@ export default function Home() {
 
     try {
       setIsLoading(true);
+      const startTime = Date.now();
       const { weather, cityData } = await fetchWeatherForCity(trimmedQuery);
+      const elapsed = Date.now() - startTime;
+      const minDelay = 500;
+      if (elapsed < minDelay) {
+        // запрос слшком быстрый ( ставим задержку )
+        await new Promise((resolve) => setTimeout(resolve, minDelay - elapsed));
+      }
       setCurrentWeather(weather);
       addToHistory({
         city: cityData.name,
@@ -127,14 +137,14 @@ export default function Home() {
       <Container
         maxWidth="lg"
         className="flex flex-col md:flex-row md:items-stretch gap-6 ">
-        <Box className="w-full md:w-2/5 flex" sx={{ height: '450px' }}>
-          <Box 
+        <Box className="w-full md:w-2/5 flex" sx={{ height: "450px" }}>
+          <Box
             className="w-full rounded-3xl bg-gradient-to-br from-purple-600/40 to-indigo-600/40 backdrop-blur-2xl border border-white/20 shadow-2xl p-6"
-            sx={{ 
-              display: 'flex',
-              flexDirection: 'column',
-              height: '100%',
-              overflow: 'hidden'
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              height: "100%",
+              overflow: "hidden",
             }}>
             <Box sx={{ flexShrink: 0 }}>
               <SearchBar
@@ -144,13 +154,17 @@ export default function Home() {
                 isLoading={isLoading}
               />
             </Box>
-            <Box sx={{ flex: 1, mt: 3, overflow: 'hidden' }}>
+            <Box sx={{ flex: 1, mt: 3, overflow: "hidden" }}>
               <HisoryList onItemClick={handleHistoryItemClick} />
             </Box>
           </Box>
         </Box>
 
-        <WeatherCard weather={currentWeather} />
+        {isLoading ? (
+          <WeatherCardSkeleton/>
+        ) : (
+          <WeatherCard weather={currentWeather} />
+        )}
       </Container>
 
       <Snackbar
