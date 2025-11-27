@@ -25,3 +25,31 @@ body {
     text-wrap: balance;
   }
 }
+
+.app-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.app-layout__sidebar,
+.app-layout__content {
+  width: 100%;
+}
+
+@media (min-width: 991px) {
+  .app-layout {
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  .app-layout__sidebar {
+    width: 40%;
+    flex: 0 0 40%;
+  }
+
+  .app-layout__content {
+    width: 60%;
+    flex: 1;
+  }
+}

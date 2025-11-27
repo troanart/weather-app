@@ -124,10 +124,8 @@ export default function Home() {
 
   return (
     <Box className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-950 via-purple-900 to-slate-900 p-4">
-      <Container
-        maxWidth="lg"
-        className="flex flex-col md:flex-row md:items-stretch gap-6 ">
-        <Box className="w-full md:w-2/5 flex" sx={{ height: '450px' }}>
+      <Container maxWidth="lg" className="app-layout">
+        <Box className="app-layout__sidebar flex" sx={{ height: "450px" }}>
           <Box 
             className="w-full rounded-3xl bg-gradient-to-br from-purple-600/40 to-indigo-600/40 backdrop-blur-2xl border border-white/20 shadow-2xl p-6"
             sx={{ 
@@ -150,7 +148,9 @@ export default function Home() {
           </Box>
         </Box>
 
-        <WeatherCard weather={currentWeather} />
+        <Box className="app-layout__content">
+          <WeatherCard weather={currentWeather} />
+        </Box>
       </Container>
 
       <Snackbar
