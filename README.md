@@ -1,15 +1,18 @@
 # Weather App
 
+Ознамиться с приложением можно по ссылке [https://weather-app-sltq.vercel.app/](weather-app-sltq.vercel.app/)
+
 
 
 ## Технологический стек
 
-- **Frontend Framework:** Next.js 14 (App Router)
+- **Framework:** Next.js 14 (App Router)
 - **Language:** TypeScript
-- **Styling:** Tailwind CSS + Radix UI
-- **State Management:** Zustand (client state) + React Query (server state)
-- **HTTP Client:** Axios
-- **Testing:** Vitest + Testing Library + Playwright
+- **Styling:** Tailwind CSS + MUI (кастомная тема + готовые компоненты)
+- **State Management:** Zustand + LocalStorage (история запросов)
+- **HTTP Client:** Axios (обёртка с единым обработчиком ошибок)
+- **UI / Анимации:** MUI Icons, кастомные GIF/градиенты
+- **Testing (план):** Vitest + Testing Library + Playwright
 - **Documentation:** Storybook
 - **Code Quality:** ESLint + Prettier
 
@@ -29,42 +32,31 @@ weather-app/
 │   │       ├── GeistVF.woff
 │   │       └── GeistMonoVF.woff
 │   │
-│   ├── components/               React компоненты
-│   │   ├── ui/                   Переиспользуемые UI компоненты (atoms)
-│   │   │                         Button, Input, Card, Toast, Spinner, etc.
-│   │   │
-│   │   └── features/             Фича-компоненты (molecules/organisms)
-│   │       ├── weather/          Компоненты для отображения погоды
-│   │       │                     WeatherCard, WeatherDetails, WeatherIcon
-│   │       │
-│   │       └── search-history/   Компоненты истории поиска
-│   │                             SearchBar, HistoryList, HistoryItem
+│   ├── components/               UI и feature компоненты
+│   │   ├── ui/                   Базовые элементы (кнопки и т.д.)
+│   │   └── features/             Блоки функциональности
+│   │       ├── weather/          WeatherCard и связанные части
+│   │       ├── search-history/   SearchBar
+│   │       └── history-list/     HistoryList с собственным скроллом
 │   │
 │   └── lib/                      Бизнес-логика и утилиты
 │       ├── api/                  API клиенты и сервисы
 │       │                         weatherApi.ts, weatherService.ts, apiClient.ts
 │       │
-│       ├── hooks/                Custom React Hooks
-│       │                         useWeather, useSearchHistory, useDebounce
-│       │
-│       ├── stores/               Zustand State Management
-│       │                         weatherStore.ts, historyStore.ts
-│       │
-│       ├── types/                TypeScript типы и интерфейсы
-│       │                         weather.types.ts, common.types.ts
-│       │
-│       ├── utils/                Утилитные функции
-│       │                         weather.utils.ts, date.utils.ts, storage.utils.ts
-│       │
-│       └── constants/            Константы приложения
-│                                 api.constants.ts, messages.constants.ts
+│       ├── hooks/                Зарезервировано под кастомные хуки
+│       ├── stores/               Zustand store (historyStore.ts)
+│       ├── theme/                Настройка MUI темы + реестр
+│       ├── types/                TypeScript типы (weather, store, components)
+│       ├── utils/                Утилиты (иконки, GIF-анимации)
+│       └── constants/            Константы (API, сообщения и т.д.)
 │
 ├── tests/                        Тесты
 │   ├── unit/                     Unit тесты
 │   └── integration/              Интеграционные тесты
 │
 ├── public/                       Статические файлы
-│   └── icons/                    Иконки и изображения
+│   ├── icons/                    SVG/PNG иконки
+│   └── weather-gifs/             Анимации для карточки погоды
 │
 ├── stories/                      Storybook компоненты
 │
@@ -77,13 +69,21 @@ weather-app/
 
 ## Основные возможности
 
-- Поиск текущей погоды по названию города
-- Отображение детальной информации о погоде
-- История успешных поисков
-- Быстрый доступ к ранее найденным городам
-- Удаление элементов из истории
-- Обработка ошибок и граничных случаев
-- Адаптивный дизайн
+- Поиск текущей погоды (геокодинг + One Call API) с русской локализацией описаний
+- Динамическая карточка: температура, диапазон min/max, ветер, влажность, фон‑GIF по иконке
+- История успешных запросов (Zustand + LocalStorage, ограничение до 10 элементов)
+- Возможность повторного запроса из истории и удаления записей
+- Snackbar‑уведомления об успехе / ошибке с использованием констант сообщений
+- Валидация
+
+
+## Архитектура и подходы
+
+- **Слой API → сервис → UI**: `weatherApi.ts` отвечает за HTTP, `weatherService.ts` — за трансформацию данных, компоненты получают уже готовый `WeatherData`.
+- **Zustand store**: `historyStore` (`initializeHistory`), 
+- **Константы сообщений**: `messages.constants.ts`  тексты для ошибок, плейсхолдеров и кнопок.
+- **Тема**: кастомная MUI тема (`lib/theme`) + Tailwind 
+- **UI‑компоненты**: `SearchBar`, `WeatherCard`, `HistoryList` 
 
 ## Начало работы
 
@@ -99,7 +99,6 @@ npm install
 
 ```env
 NEXT_PUBLIC_WEATHER_API_KEY=your_api_key_here
-NEXT_PUBLIC_WEATHER_API_URL=https://api.openweathermap.org/data/2.5
 ```
 
 ### Запуск development сервера
