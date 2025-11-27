@@ -61,3 +61,4 @@ export interface WeatherError {
   code?: string; // код ошибки 
   type?: 'validation' | 'network' | 'api' | 'unknown'; // тип ошибки
 }
+

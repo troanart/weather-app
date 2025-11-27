@@ -12,6 +12,7 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 import { Button } from "@/components/ui/Button";
 import { SearchBarProps } from "@/lib/types/components.types";
+import { PLACEHOLDERS } from "@/lib/constants/messages.constants";
 
 
 export default function SearchBar(props: SearchBarProps) {
@@ -30,7 +31,7 @@ export default function SearchBar(props: SearchBarProps) {
               props.onSearch();
             }
           }}
-          placeholder="Введите название города"
+          placeholder={PLACEHOLDERS.SEARCH_INPUT}
           className="flex-1 rounded-2xl border border-white/30 bg-white/10 px-4 py-3 text-sm text-white placeholder:text-white/50 outline-none backdrop-blur-sm focus:border-amber-400 focus:ring-2 focus:ring-amber-400/40 transition"
         />
         <Button onClick={props.onSearch} disabled={props.isLoading}>

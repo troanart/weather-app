@@ -30,19 +30,12 @@ export const SUCCESS_MESSAGES = {
 export const INFO_MESSAGES = {
   INITIAL_STATE: 'Введите название города, чтобы узнать погоду.',
   LOADING: 'Загрузка данных о погоде...',
-  NO_HISTORY: 'История поиска пуста.',
+  NO_HISTORY: 'История поиска пуста',
 } as const;
 
 export const PLACEHOLDERS = {
   SEARCH_INPUT: 'Введите название города...',
-  SEARCH_INPUT_SHORT: 'Город',
 } as const;
 
-export const BUTTON_LABELS = {
-  SEARCH: 'Найти',
-  CLEAR: 'Очистить',
-  DELETE: 'Удалить',
-  UNDO: 'Отменить',
-  CLOSE: 'Закрыть',
-} as const;
+
 

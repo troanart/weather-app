@@ -8,7 +8,7 @@ import { WeatherData, CityGeoData, WeatherApiResponse } from '@/lib/types/weathe
 
 /**
  * Переделываем данные
- * @param cityData - данные о городе от Geocoding API
+ * @param cityData - данные о городе от Geocoding API (широта и долгота )
  * @param weatherData - данные о погоде от Weather API
  * @returns упрощенный объект WeatherData 
  */
@@ -37,15 +37,16 @@ export const transformWeatherData = (
  * Получить погоду по названию города и преобразовать в формат UI
  * Функцию будут юзать компаненты
  * @param cityName - название города
- * @returns данные о погоде в формате UI
+ * @returns данные о погоде в формате UI и координаты города
  */
-export const fetchWeatherForCity = async (cityName: string): Promise<WeatherData> => {
-
+export const fetchWeatherForCity = async (
+  cityName: string
+): Promise<{ weather: WeatherData; cityData: CityGeoData }> => {
   const { cityData, weatherData } = await getWeatherByCity(cityName);
 
   const transformedData = transformWeatherData(cityData, weatherData);
 
-  return transformedData;
+  return { weather: transformedData, cityData };
 };
 
 
