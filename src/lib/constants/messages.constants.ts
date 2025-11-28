@@ -37,5 +37,17 @@ export const PLACEHOLDERS = {
   SEARCH_INPUT: 'Введите название города...',
 } as const;
 
+export const BUTTON_LABELS = {
+  SEARCH: 'Поиск',
+  CANCEL: 'Отмена',
+  DELETE: 'Удалить',
+  RESTORE: 'Восстановить',
+} as const;
+
+export const DIALOG_MESSAGES = {
+  DELETE_TITLE: 'Удалить запись?',
+  DELETE_CONFIRMATION: 'Вы уверены, что хотите удалить эту запись из истории? Вы сможете восстановить её с помощью кнопки "Restore".',
+} as const;
+
 
 
