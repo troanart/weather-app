@@ -31,6 +31,7 @@ export default function Home() {
   const [snackbarMessage, setSnackbarMessage] = useState<string>("");
   const [snackbarSeverity, setSnackbarSeverity] = useState<"success" | "error">("error");
   const [inputData, setInputData] = useState("");
+  const [validationError, setValidationError] = useState<string>("");
   const [currentWeather, setCurrentWeather] = useState<WeatherData | null>(
     null
   );
@@ -46,6 +47,10 @@ export default function Home() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputData(e.target.value);
+   
+    if (validationError) {
+      setValidationError("");
+    }
   };
 
   const handleCloseSnackbar = () => {
@@ -61,10 +66,25 @@ export default function Home() {
   const handleButtonClick = async () => {
     const trimmedQuery = inputData.trim();
 
+    // Проверка на пустой ввод
     if (!trimmedQuery) {
-      showSnackbar(ERROR_MESSAGES.EMPTY_INPUT, "error");
+      setValidationError(ERROR_MESSAGES.EMPTY_INPUT);
       return;
     }
+
+    // Проверка на длину (например, минимум 2 символа, максимум 50)
+    if (trimmedQuery.length < 2 || trimmedQuery.length > 50) {
+      setValidationError(ERROR_MESSAGES.INVALID_LENGTH);
+      return;
+    }
+    // Проверка на спецсимволы (разрешены только буквы, пробелы, дефис)
+    if (!/^[a-zA-Zа-яА-ЯёЁ\s\-]+$/.test(trimmedQuery)) {
+      setValidationError(ERROR_MESSAGES.INVALID_INPUT);
+      return;
+    }
+
+    // Очищаем ошибку валидации, если все проверки пройдены
+    setValidationError("");
 
     try {
       setIsLoading(true);
@@ -153,6 +173,19 @@ export default function Home() {
                 onSearch={handleButtonClick}
                 isLoading={isLoading}
               />
+              {validationError && (
+                <Box
+                  sx={{
+                    mt: 1.5,
+                    p: 1.5,
+                    borderRadius: 2,
+                    bgcolor: "error.main",
+                    color: "error.contrastText",
+                    fontSize: "0.875rem",
+                  }}>
+                  {validationError}
+                </Box>
+              )}
             </Box>
             <Box sx={{ flex: 1, mt: 3, overflow: "hidden" }}>
               <HisoryList onItemClick={handleHistoryItemClick} />
