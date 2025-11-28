@@ -30,7 +30,7 @@ export default defineConfig({
         },
         test: {
           name: 'unit',
-          include: ['tests/unit/**/*.test.ts', 'tests/integration/**/*.test.tsx'],
+          include: ['tests/unit/**/*.test.{ts,tsx}', 'tests/integration/**/*.test.tsx'],
           exclude: ['node_modules', 'dist'],
         },
       },

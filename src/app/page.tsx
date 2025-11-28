@@ -12,6 +12,7 @@ import {
 
 
 import { fetchWeatherForCity } from "@/lib/api/weatherService";
+import { validateCityName } from "@/lib/utils/validation";
 
 import { useHistoryStore } from "@/lib/stores/historyStore";
 
@@ -64,27 +65,18 @@ export default function Home() {
   };
 
   const handleButtonClick = async () => {
-    const trimmedQuery = inputData.trim();
-
-    // Проверка на пустой ввод
-    if (!trimmedQuery) {
-      setValidationError(ERROR_MESSAGES.EMPTY_INPUT);
+    // Валидация названия города
+    const validationResult = validateCityName(inputData);
+    
+    if (!validationResult.isValid) {
+      setValidationError(validationResult.error!);
       return;
     }
 
-    // Проверка на длину (например, минимум 2 символа, максимум 50)
-    if (trimmedQuery.length < 2 || trimmedQuery.length > 50) {
-      setValidationError(ERROR_MESSAGES.INVALID_LENGTH);
-      return;
-    }
-    // Проверка на спецсимволы (разрешены только буквы, пробелы, дефис)
-    if (!/^[a-zA-Zа-яА-ЯёЁ\s\-]+$/.test(trimmedQuery)) {
-      setValidationError(ERROR_MESSAGES.INVALID_INPUT);
-      return;
-    }
-
-    // Очищаем ошибку валидации, если все проверки пройдены
+    // Очищаем ошибку валидации
     setValidationError("");
+    
+    const trimmedQuery = inputData.trim();
 
     try {
       setIsLoading(true);
