@@ -9,12 +9,19 @@ import { getWeatherGif } from "@/lib/utils/weatherGifs";
 
 interface WeatherCardProps {
   weather: WeatherData | null;
+  isLoading?: boolean;
 }
 
-export default function WeatherCard({ weather }: WeatherCardProps) {
+export default function WeatherCard({ weather, isLoading = false }: WeatherCardProps) {
   return (
     <Box className="w-full md:w-3/5 flex ">
-      <Box className="w-full rounded-3xl bg-gradient-to-br from-purple-600/50 to-blue-600/50 backdrop-blur-2xl border border-white/20 shadow-2xl p-6 md:p-8 text-white relative overflow-hidden ">
+      <Box 
+        className="w-full rounded-3xl bg-gradient-to-br from-purple-600/50 to-blue-600/50 backdrop-blur-2xl border border-white/20 shadow-2xl p-6 md:p-8 text-white relative overflow-hidden "
+        sx={{
+          opacity: isLoading ? 0.6 : 1,
+          transition: 'opacity 0.3s ease-in-out',
+          pointerEvents: isLoading ? 'none' : 'auto',
+        }}>
         {/* Декоративные элементы */}
         <Box className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
         <Box className="absolute bottom-0 left-0 w-48 h-48 bg-blue-400/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />

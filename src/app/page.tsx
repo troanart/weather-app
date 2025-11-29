@@ -37,6 +37,7 @@ export default function Home() {
     null
   );
   const [isLoading, setIsLoading] = useState(false);
+  const [isSearching, setIsSearching] = useState(false);
 
   const addToHistory = useHistoryStore((state) => state.addToHistory);
   const initializeHistory = useHistoryStore((state) => state.initializeHistory);
@@ -80,6 +81,7 @@ export default function Home() {
 
     try {
       setIsLoading(true);
+      setIsSearching(true);
       const startTime = Date.now();
       const { weather, cityData } = await fetchWeatherForCity(trimmedQuery);
       const elapsed = Date.now() - startTime;
@@ -108,6 +110,7 @@ export default function Home() {
       console.error("Ошибка при загрузке погоды:", error);
     } finally {
       setIsLoading(false);
+      setIsSearching(false);
     }
   };
 
@@ -163,7 +166,7 @@ export default function Home() {
                 value={inputData}
                 onChange={handleInputChange}
                 onSearch={handleButtonClick}
-                isLoading={isLoading}
+                isLoading={isSearching}
               />
               {validationError && (
                 <Box
@@ -185,10 +188,10 @@ export default function Home() {
           </Box>
         </Box>
 
-        {isLoading ? (
+        {isLoading && !currentWeather ? (
           <WeatherCardSkeleton />
         ) : (
-          <WeatherCard weather={currentWeather} />
+          <WeatherCard weather={currentWeather} isLoading={isLoading} />
         )}
       </Container>
 
