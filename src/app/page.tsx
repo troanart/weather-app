@@ -23,7 +23,7 @@ import { CityGeoData } from "@/lib/types/weather.types";
 
 import WeatherCard from "@/components/features/weather/WeatherCard";
 import SearchBar from "@/components/features/search-history/SearchBar";
-import HisoryList from "@/components/features/history-list/HistoryList";
+import HistoryList from "@/components/features/history-list/HistoryList";
 import WeatherCardSkeleton from "@/components/features/weather/WeatherCardSkeleton";
 
 
@@ -180,13 +180,13 @@ export default function Home() {
               )}
             </Box>
             <Box sx={{ flex: 1, mt: 3, overflow: "hidden" }}>
-              <HisoryList onItemClick={handleHistoryItemClick} />
+              <HistoryList onItemClick={handleHistoryItemClick} />
             </Box>
           </Box>
         </Box>
 
         {isLoading ? (
-          <WeatherCardSkeleton/>
+          <WeatherCardSkeleton />
         ) : (
           <WeatherCard weather={currentWeather} />
         )}

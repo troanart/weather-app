@@ -1,7 +1,6 @@
 /**
  * Менеджер состояний ( стор )
  */
-
 import { create } from 'zustand';
 import { SearchHistoryItem } from '@/lib/types/weather.types';
 import { HistoryStore } from "@/lib/types/store.types";

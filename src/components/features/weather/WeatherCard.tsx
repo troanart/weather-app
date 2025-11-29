@@ -45,7 +45,7 @@ export default function WeatherCard({ weather }: WeatherCardProps) {
                       {getWeatherIcon(weather.icon)}
                     </Typography>
                     <Typography
-                      sx={{ fontSize: "3rem", fontWeight: 600, lineHeight: 1 }}>
+                      sx={{ fontSize: "2rem", fontWeight: 600, lineHeight: 1 }}>
                       {weather.temperature}°C
                     </Typography>
                   </Box>
@@ -54,7 +54,7 @@ export default function WeatherCard({ weather }: WeatherCardProps) {
                 <Box className=" ">
                   <Typography
                     sx={{
-                      fontSize: "3rem",
+                      fontSize: "2rem",
                       fontWeight: 600,
                       lineHeight: 1,
                     }}>

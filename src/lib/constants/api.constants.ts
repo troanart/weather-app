@@ -29,7 +29,7 @@ export const WEATHER_UNITS = {
 } as const;
 
 export const QUERY_KEYS = {
-  WEATHER: 'weather', // ключ для React Query кэша погоды
+  WEATHER: 'weather', 
   GEOCODING: 'geocoding', // ключ для геокодинга
   HISTORY: 'search-history', // ключ для истории
 } as const;
