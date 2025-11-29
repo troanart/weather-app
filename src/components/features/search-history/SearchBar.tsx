@@ -21,7 +21,7 @@ export default function SearchBar(props: SearchBarProps) {
       <Typography sx={{ fontSize: "1.75rem", fontWeight: 600, lineHeight: 1 }}>
         Поиск города
       </Typography>
-      <Box className="flex gap-3 mt-3">
+      <Box className="flex flex-col md:flex-row gap-3 mt-3">
         <input
           type="text"
           value={props.value}

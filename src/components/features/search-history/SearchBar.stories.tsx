@@ -87,9 +87,13 @@ export const LongCityName: Story = {
 
 // Story: Интерактивное состояние
 export const Interactive: Story = {
-  render: function Render() {
-    const [value, setValue] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
+  args: {
+    value: '',
+    isLoading: false,
+  },
+  render: function Render(args) {
+    const [value, setValue] = useState(args.value ?? '');
+    const [isLoading, setIsLoading] = useState(args.isLoading ?? false);
 
     const handleSearch = () => {
       setIsLoading(true);

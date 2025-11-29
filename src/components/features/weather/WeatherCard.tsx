@@ -14,7 +14,7 @@ interface WeatherCardProps {
 
 export default function WeatherCard({ weather, isLoading = false }: WeatherCardProps) {
   return (
-    <Box className="w-full md:w-3/5 flex ">
+    <Box className="w-full lg:w-3/5 flex ">
       <Box 
         className="w-full rounded-3xl bg-gradient-to-br from-purple-600/50 to-blue-600/50 backdrop-blur-2xl border border-white/20 shadow-2xl p-6 md:p-8 text-white relative overflow-hidden "
         sx={{
@@ -43,7 +43,7 @@ export default function WeatherCard({ weather, isLoading = false }: WeatherCardP
                 </Typography>
               </Box>
 
-              <Box className="flex items-center justify-between">
+              <Box className="flex items-center flex-wrap justify-between">
                 <Box>
                   <Box className="flex items-center  gap-3 ">
                     <Typography
@@ -58,7 +58,7 @@ export default function WeatherCard({ weather, isLoading = false }: WeatherCardP
                   </Box>
                 </Box>
 
-                <Box className=" ">
+                <Box className="">
                   <Typography
                     sx={{
                       fontSize: "2rem",
