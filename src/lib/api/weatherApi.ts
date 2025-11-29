@@ -4,7 +4,7 @@
  */
 
 import { geoApiClient, weatherApiClient } from './apiClient';
-import { API_CONFIG, API_ENDPOINTS, WEATHER_UNITS } from '@/lib/constants/api.constants';
+import { API_CONFIG, API_ENDPOINTS, WEATHER_UNITS, WEATHER_LANG } from '@/lib/constants/api.constants';
 import { CityGeoData, WeatherApiResponse } from '@/lib/types/weather.types';
 
 /**
@@ -29,6 +29,7 @@ export const getCityCoordinates = async (cityName: string): Promise<CityGeoData[
       q: cityName,
       limit: API_CONFIG.GEO_LIMIT,
       appid: getApiKey(),
+      lang: WEATHER_LANG.RUSSIAN,
     },
   });
 
@@ -50,6 +51,7 @@ export const getWeatherByCoordinates = async (
       lat,
       lon,
       units: WEATHER_UNITS.METRIC,
+      lang: WEATHER_LANG.RUSSIAN,
       appid: getApiKey(),
     },
   });

@@ -12,7 +12,7 @@ export const API_CONFIG = {
   TIMEOUT: 10000,
   
 
-  GEO_LIMIT: 1, 
+  GEO_LIMIT: 5, 
 } as const;
 
 export const API_ENDPOINTS = {
@@ -26,6 +26,11 @@ export const API_ENDPOINTS = {
 export const WEATHER_UNITS = {
   METRIC: 'metric', 
   IMPERIAL: 'imperial', 
+} as const;
+
+export const WEATHER_LANG = {
+  RUSSIAN: "ru",
+  ENGLISH: "en",
 } as const;
 
 export const QUERY_KEYS = {
