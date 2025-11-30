@@ -14,13 +14,13 @@ interface WeatherCardProps {
 
 export default function WeatherCard({ weather, isLoading = false }: WeatherCardProps) {
   return (
-    <Box className="w-full lg:w-3/5 flex ">
-      <Box 
+    <Box className="w-full lg:w-3/5 flex " sx={{ height: "450px" }}>
+      <Box
         className="w-full rounded-3xl bg-gradient-to-br from-purple-600/50 to-blue-600/50 backdrop-blur-2xl border border-white/20 shadow-2xl p-6 md:p-8 text-white relative overflow-hidden "
         sx={{
           opacity: isLoading ? 0.6 : 1,
-          transition: 'opacity 0.3s ease-in-out',
-          pointerEvents: isLoading ? 'none' : 'auto',
+          transition: "opacity 0.3s ease-in-out",
+          pointerEvents: isLoading ? "none" : "auto",
         }}>
         {/* Декоративные элементы */}
         <Box className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
@@ -70,7 +70,30 @@ export default function WeatherCard({ weather, isLoading = false }: WeatherCardP
                 </Box>
               </Box>
 
-              <Box className="flex items-center justify-around rounded-2xl bg-white/10 backdrop-blur-sm px-4 py-4">
+              <Box
+                className="rounded-2xl bg-blue-500/30 backdrop-blur-sm px-4 py-7 relative overflow-hidden"
+                sx={{
+                  backgroundImage: `url(${getWeatherGif(weather.icon)})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  backgroundRepeat: "no-repeat",
+                }}>
+                <Box className="absolute inset-0 bg-blue-500/30 rounded-2xl" />
+                <Box className="flex items-center justify-center text-center gap-2 relative z-10">
+                  <Box className="bg-black/30 backdrop-blur-sm rounded-lg px-3 py-1.5 flex items-center gap-2">
+                    {getSmallWeatherIcon(weather.icon)}
+                    <Typography
+                      sx={{
+                        fontSize: "1rem",
+                        textTransform: "capitalize",
+                        fontWeight: 500,
+                      }}>
+                      {weather.description}
+                    </Typography>
+                  </Box>
+                </Box>
+              </Box>
+              <Box className="flex items-center justify-around rounded-2xl bg-white/10 backdrop-blur-sm px-4 py-2">
                 <Box className="text-center">
                   <Typography
                     sx={{
@@ -95,30 +118,6 @@ export default function WeatherCard({ weather, isLoading = false }: WeatherCardP
                   <Typography sx={{ fontSize: "1.125rem", fontWeight: 600 }}>
                     {weather.maxTemp}°
                   </Typography>
-                </Box>
-              </Box>
-
-              <Box
-                className="rounded-2xl bg-blue-500/30 backdrop-blur-sm px-4 py-3 relative overflow-hidden"
-                sx={{
-                  backgroundImage: `url(${getWeatherGif(weather.icon)})`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                  backgroundRepeat: "no-repeat",
-                }}>
-                <Box className="absolute inset-0 bg-blue-500/30 rounded-2xl" />
-                <Box className="flex items-center justify-center text-center gap-2 relative z-10">
-                  <Box className="bg-black/30 backdrop-blur-sm rounded-lg px-3 py-1.5 flex items-center gap-2">
-                    {getSmallWeatherIcon(weather.icon)}
-                    <Typography
-                      sx={{
-                        fontSize: "0.875rem",
-                        textTransform: "capitalize",
-                        fontWeight: 500,
-                      }}>
-                      {weather.description}
-                    </Typography>
-                  </Box>
                 </Box>
               </Box>
 

@@ -151,15 +151,15 @@ export default function Home() {
     <Box className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-950 via-purple-900 to-slate-900 p-4">
       <Container
         maxWidth="lg"
-        className="flex flex-col lg:flex-row md:items-stretch gap-6 ">
-        <Box className="w-full lg:w-2/5 flex" sx={{ height: "450px" }}>
+        className="flex flex-col lg:flex-row md:items-start  gap-6 ">
+        <Box className="w-full lg:w-2/5 flex" >
           <Box
             className="w-full rounded-3xl bg-gradient-to-br from-purple-600/40 to-indigo-600/40 backdrop-blur-2xl border border-white/20 shadow-2xl p-6"
             sx={{
               display: "flex",
               flexDirection: "column",
               height: "100%",
-              overflow: "hidden",
+              
             }}>
             <Box sx={{ flexShrink: 0 }}>
               <SearchBar
