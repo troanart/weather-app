@@ -1,12 +1,11 @@
-import {
-  WbSunny,
-  Cloud,
-  CloudQueue,
-  Grain,
-  AcUnit,
-  Thunderstorm,
-  Foggy,
-} from "@mui/icons-material";
+
+import WbSunny from "@mui/icons-material/WbSunny";
+import Cloud from "@mui/icons-material/Cloud";
+import CloudQueue from "@mui/icons-material/CloudQueue";
+import Grain from "@mui/icons-material/Grain";
+import AcUnit from "@mui/icons-material/AcUnit";
+import Thunderstorm from "@mui/icons-material/Thunderstorm";
+import Foggy from "@mui/icons-material/Foggy";
 
 /**
  * Переделываем иконки из Апи в иконки MUI по их коду

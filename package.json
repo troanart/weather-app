@@ -11,6 +11,7 @@
     "test:watch": "vitest",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest run --coverage",
+    "test:storybook": "vitest run --config vitest.storybook.config.ts",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },

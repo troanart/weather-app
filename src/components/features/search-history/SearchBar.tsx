@@ -12,6 +12,7 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { Button } from "@/components/ui/Button";
 import { SearchBarProps } from "@/lib/types/components.types";
 import { PLACEHOLDERS, ERROR_MESSAGES } from "@/lib/constants/messages.constants";
+import { UI_CONFIG } from "@/lib/constants/ui.constants";
 import { useDebounce } from "@/lib/hooks/useDebounce";
 import { getCityCoordinates } from "@/lib/api/weatherApi";
 import { CityGeoData } from "@/lib/types/weather.types";
@@ -47,7 +48,7 @@ export default function SearchBar(props: SearchBarProps) {
       try {
         setIsLoadingSuggestions(true);
         const cities = await getCityCoordinates(debouncedValue);
-        setSuggestions(cities.slice(0, 3)); // Показываем только 3 города
+        setSuggestions(cities.slice(0, UI_CONFIG.MAX_SUGGESTIONS));
         setShowSuggestions(cities.length > 0);
       } catch (error) {
         console.error(ERROR_MESSAGES.CITIES_LOAD_ERROR, error);
@@ -66,8 +67,8 @@ export default function SearchBar(props: SearchBarProps) {
       target: { value: `${city.name}, ${city.country}` },
     } as React.ChangeEvent<HTMLInputElement>);
     setShowSuggestions(false);
-    // Автоматически начинаем поиск
-    setTimeout(() => props.onSearch(), 100);
+    // Автоматически начинаем поиск с задержкой для обновления состояния input
+    setTimeout(() => props.onSearch(), UI_CONFIG.AUTO_SEARCH_DELAY);
   };
 
   return (
